@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -18,8 +17,6 @@ class IndexState extends State<IndexPage> {
   /// if channel textField is validated to have error
   bool _validateError = false;
 
-  ClientRole _role = ClientRole.Broadcaster;
-
   @override
   void dispose() {
     // dispose input controller
@@ -31,7 +28,7 @@ class IndexState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agora Flutter QuickStart'),
+        title: Text('Video Call'),
       ),
       body: Center(
         child: Container(
@@ -53,34 +50,6 @@ class IndexState extends State<IndexPage> {
                       hintText: 'Channel name',
                     ),
                   ))
-                ],
-              ),
-              Column(
-                children: [
-                  ListTile(
-                    title: Text(ClientRole.Broadcaster.toString()),
-                    leading: Radio(
-                      value: ClientRole.Broadcaster,
-                      groupValue: _role,
-                      onChanged: (ClientRole value) {
-                        setState(() {
-                          _role = value;
-                        });
-                      },
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(ClientRole.Audience.toString()),
-                    leading: Radio(
-                      value: ClientRole.Audience,
-                      groupValue: _role,
-                      onChanged: (ClientRole value) {
-                        setState(() {
-                          _role = value;
-                        });
-                      },
-                    ),
-                  )
                 ],
               ),
               Padding(
@@ -121,7 +90,6 @@ class IndexState extends State<IndexPage> {
         MaterialPageRoute(
           builder: (context) => CallPage(
             channelName: _channelController.text,
-            role: _role,
           ),
         ),
       );
